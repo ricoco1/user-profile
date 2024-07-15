@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Edit Profile</h1>
+            <form method="post" action="{{ url_for('edit_profile', profile_id=profile['_id']) }}" enctype="multipart/form-data">
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                        <input class="input" type="text" name="name" value="{{ profile.name }}" required>
+                    </div>
+                    {% if 'Name is required' in get_flashed_messages(category_filter=['error']) %}
+                        <p class="help is-danger">Name is required</p>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label class="label">Phone</label>
+                    <div class="control">
+                        <input class="input" type="tel" name="phone" value="{{ profile.phone }}" required>
+                    </div>
+                    {% if 'Phone is required' in get_flashed_messages(category_filter=['error']) %}
+                        <p class="help is-danger">Phone is required</p>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input class="input" type="email" name="email" value="{{ profile.email }}" required>
+                    </div>
+                    {% if 'Email is required' in get_flashed_messages(category_filter=['error']) %}
+                        <p class="help is-danger">Email is required</p>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label class="label">Hobby</label>
+                    <div class="control">
+                        <input class="input" type="text" name="hobby" value="{{ profile.hobby }}" required>
+                    </div>
+                    {% if 'Hobby is required' in get_flashed_messages(category_filter=['error']) %}
+                        <p class="help is-danger">Hobby is required</p>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label class="label">Profile Picture</label>
+                    <div class="control">
+                        <input class="input" type="file" name="file">
+                    </div>
+                    {% if 'Valid file is required' in get_flashed_messages(category_filter=['error']) %}
+                        <p class="help is-danger">Valid file is required</p>
+                    {% endif %}
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link" type="submit">Submit</button>
+                    </div>
+                    <div class="control">
+                        <a href="{{ url_for('home') }}" class="button is-link is-light">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

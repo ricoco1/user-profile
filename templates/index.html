@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Profiles</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">User Profiles</h1>
+        <a href="{{ url_for('add_profile') }}" class="btn btn-primary mb-3">Add Profile</a>
+        <div class="row" id="profile-gallery">
+            {% for profile in profiles %}
+            <div class="col-sm-12 col-md-6 col-lg-4" id="profile-{{ profile._id }}">
+                <div class="card mb-4">
+                    <div class="card-body profile-info">
+                        <img src="{{ url_for('static', filename='uploads/img/' ~ profile.filename) }}" class="profile-img" alt="Profile Image">
+                        <div class="details">
+                            <h5 class="card-title">{{ profile.name }}</h5>
+                            <p class="card-text">{{ profile.phone }}</p>
+                            <p class="card-text">{{ profile.email }}</p>
+                            <p class="card-text">{{ profile.hobby }}</p>
+                            <a href="{{ url_for('edit_profile', profile_id=profile._id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ url_for('delete_profile', profile_id=profile._id) }}" method="POST" class="d-inline">
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
